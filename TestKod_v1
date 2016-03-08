@@ -1,0 +1,76 @@
+/*
+ * File:   main.c
+ * Author: Mikael
+ *
+ * Created on den 27 februari 2016, 14:13
+ */
+
+#include "xc.h"
+
+// CONFIG2
+#pragma config POSCMOD = XT             // Primary Oscillator Select (XT Oscillator mode selected)
+#pragma config OSCIOFNC = OFF           // Primary Oscillator Output Function (OSC2/CLKO/RC15 functions as CLKO (FOSC/2))
+#pragma config FCKSM = CSDCMD           // Clock Switching and Monitor (Clock switching and Fail-Safe Clock Monitor are disabled)
+#pragma config FNOSC = PRI              // Oscillator Select (Primary Oscillator (XT, HS, EC))
+#pragma config IESO = ON                // Internal External Switch Over Mode (IESO mode (Two-Speed Start-up) enabled)
+
+#pragma config FWDTEN = OFF             // Watchdog Timer Enable (Watchdog Timer is disabled)
+#pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is disabled)
+
+#define FOSC (8000000UL)
+#define FCY (FOSC/2)
+
+
+
+#include <libpic30.h>  // To be able to use __delay_ms();
+#include <stdio.h>
+#include "lcd.h"
+char str[17];
+int riktning = 0;
+void _ISR _INT3Interrupt(void)
+{
+
+    if(_INT3IF){
+
+        if(_RD7 == 0){
+            riktning++;
+        }
+        else{
+            riktning--;
+        }
+    }
+        _INT3IF = 0;
+    
+}
+void init(void){
+    _INT3IE = 1;
+    _INT3EP = 1;//NEGATIV FLANK
+
+    
+}
+int main(void)
+{
+    init();
+    lcd_init();
+    while(1){
+        __delay_ms(30);    
+        sprintf(str,"hej: %d",riktning);
+        lcd_gotoxy(0,1);
+        lcd_putstring(str);
+            
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+    }
+}
+
