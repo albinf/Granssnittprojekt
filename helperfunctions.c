@@ -6,3 +6,17 @@ int LimitModulo (int limit, int direction, int value) //Helperfunctions for putt
 	value += direction;
 	return value = value % limit;
 }
+
+int LimitStop(int upperLimit, int lowerLimit, int direction, int value)
+{
+	value += direction;
+	if(value >= upperLimit)
+	{
+		value = upperLimit;
+	}
+	else if(value <= lowerLimit)
+	{
+		value = lowerLimit;
+	}
+	return value;
+}
