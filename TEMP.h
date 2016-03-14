@@ -17,6 +17,11 @@
 #include <xc.h> // include processor files
 #include <stdint.h>
 
+void ReadADC();//Reads the value from ADC
+
+void VoltageToTemp(); // Converts voltage to temperatur
+
+
 
 
 
