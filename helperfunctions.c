@@ -21,3 +21,18 @@ int LimitStop(int upperLimit, int lowerLimit, int direction, int value)
 	}
 	return value;
 }
+
+int ChangeOnRelease()
+{
+	if(BUTTON_SOMETHING == 1)
+	{
+		button_pressed = 1;
+		return 0;
+	}
+	if(BUTTON_SOMETHING == 0) && (button_pressed == 1)
+	{
+		button_pressed = 0;
+		return 1;	
+	}
+	
+}
