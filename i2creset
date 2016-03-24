@@ -1,0 +1,20 @@
+void reset_i2c_bus(void)
+{
+   int x = 0;
+
+   //initiate stop bit
+   I2C1CONbits.PEN = 1;
+
+   //wait for hardware clear of stop bit
+   while (I2C1CONbits.PEN)
+   {
+      DelayuSec(1);
+      x ++;
+      if (x > 20) break;
+   }
+   I2C1CONbits.RCEN = 0;
+   IFS1bits.MI2C1IF = 0; // Clear Interrupt
+   I2C1STATbits.IWCOL = 0;
+   I2C1STATbits.BCL = 0;
+   DelayuSec(10);
+}
